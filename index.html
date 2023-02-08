@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <title>Frontend Mentor | Ping coming soon page</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="index.js"></script>
+</head>
+<body>
+<div class="main-container">
+  <img src="images/logo.svg" alt="">
+  <h1>We are launching <strong>soon!</strong></h1>
+  <p>Subscribe and get notified</p>
+  <form novalidate>
+    <input type="email" name="email" placeholder="Your email adress..." id="mail" required>
+    <span class="error" aria-live="polite"></span>
+    <input type="submit" value="Notify me">
+  </form>
+  <img src="images/illustration-dashboard.png" alt="">
+  <span>&copy; Copyright Ping. All rights reserved.</span>
+</div>
+<script>
+const form = document.querySelector("form");
+const email = document.getElementById("mail");
+const emailError = document.querySelector("#mail + span.error");
+
+email.addEventListener("input", (event) => {
+  if (email.validity.valid) {
+    emailError.textContent = "";
+    emailError.className = "error";
+  } else {
+    showError();
+  }
+});
+
+form.addEventListener("submit", (event) => {
+  if (!email.validity.valid) {
+    showError();
+    event.preventDefault();
+  }
+});
+
+function showError() {
+  if (email.validity.valueMissing) {
+    emailError.textContent = "You need to enter an email address.";
+  } else if (email.validity.typeMismatch) {
+    emailError.textContent = "Please provide a valid email adress";
+
+  }
+  emailError.className = "error active";
+}
+</script>
+</body>
+</html>
